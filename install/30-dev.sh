@@ -13,6 +13,7 @@ sudo pacman -S --needed --noconfirm \
   mise \
   ncurses openssl libxslt inotify-tools \
   docker docker-compose docker-buildx lazydocker \
+  pgcli \
   tailscale openssh
 
 # ---- Docker -----------------------------------------------------------------
@@ -26,6 +27,9 @@ if ! tailscale status >/dev/null 2>&1; then
   info "Tailscale: open the printed URL to log in"
   sudo tailscale up --operator="$USER" --ssh
 fi
+
+# ---- approved extras (AUR fallback via paru) ----------------------------------
+paru -S --needed --noconfirm lazysql spotify-player
 
 # ---- Mullvad VPN (AUR: daemon + `mullvad` CLI + GUI) ---------------------------
 # Note: while Mullvad is connected its firewall blocks the tailnet, so `ssh <mac>`

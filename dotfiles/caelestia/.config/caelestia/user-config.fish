@@ -4,3 +4,4 @@ mise activate fish | source
 
 abbr -a lg lazygit
 abbr -a ld lazydocker
+abbr -a sp spotify_player
