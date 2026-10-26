@@ -70,5 +70,16 @@ if [[ ! -f ~/.ssh/id_ed25519 ]]; then
 fi
 mkdir -p ~/code
 
-echo "Next: 'gh auth login' (choose SSH), then 'claude' to sign in."
+# ---- GitHub CLI login + gh-dash -------------------------------------------------
+# gh-dash ships as a gh extension, which needs gh to be signed in first
+if gh auth status >/dev/null 2>&1 || gh auth login --git-protocol ssh --web; then
+  gh extension install dlvhdr/gh-dash 2>/dev/null || gh extension upgrade gh-dash || true
+else
+  echo "Skipped GitHub login. Later: gh auth login && gh extension install dlvhdr/gh-dash"
+fi
+
+# ---- posting (HTTP API client TUI), installed with uv from mise -------------------
+mise exec -- uv tool install --python 3.13 posting || echo "posting failed; later: uv tool install --python 3.13 posting"
+
+echo "Next: run 'claude' to sign in."
 echo "Log out and back in for docker group membership to apply."
