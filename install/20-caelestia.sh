@@ -22,9 +22,14 @@ fi
 info "Installing caelestia-cli"
 paru -S --needed --noconfirm caelestia-cli
 
-# All default components, plus Zed and Neovim colors (themed by Caelestia). VS Code/Codium stay off.
+# All default components, plus Zed, Neovim colors and Discord via Equibop (all themed by
+# Caelestia). VS Code/Codium stay off.
 info "Running caelestia install"
-caelestia install --aur-helper paru --enable-components zed,nvim --noconfirm
+caelestia install --aur-helper paru --enable-components zed,nvim,discord --noconfirm
+
+# ---- apps outside Caelestia ------------------------------------------------------
+info "Installing OnlyOffice and Teams"
+paru -S --needed --noconfirm onlyoffice-bin teams-for-linux-bin
 
 # ---- login manager (Caelestia ships none; greetd + tuigreet is what it recommends)
 info "Configuring greetd (tuigreet → Hyprland)"
