@@ -37,15 +37,14 @@ paru -S --needed --noconfirm lazysql
 # over Tailscale won't work until you disconnect. See README › VPNs.
 paru -S --needed --noconfirm mullvad-vpn-bin
 sudo systemctl enable --now mullvad-daemon
-mullvad auto-connect set off >/dev/null 2>&1 || true
+# the daemon needs a moment before its CLI socket answers
+for _ in {1..10}; do mullvad auto-connect set off >/dev/null 2>&1 && break; sleep 1; done
 echo "Mullvad: run 'mullvad account login <number>' then 'mullvad connect'."
 
 # ---- runtimes via mise -------------------------------------------------------
 info "Installing runtimes with mise (Erlang compiles from source — grab a coffee)"
 eval "$(mise activate bash)"
-mise trust --all >/dev/null 2>&1 || true
 mise install
-mise reshim
 
 info "Elixir: Hex, Rebar, Phoenix generator"
 mise exec -- mix local.hex --force

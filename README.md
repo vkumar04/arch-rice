@@ -46,7 +46,7 @@ Plus: Zed, Neovim, Discord (Equibop) and Spotify components enabled, scheme set 
 - Keybinds: [Caelestia's list](https://github.com/caelestia-dots/caelestia#default-keybinds). Tap `Super` for the launcher; `Super+T` terminal, `Super+C` Zed, `Super+W` browser, `Super+Q` close.
 - Change scheme: launcher, or `caelestia scheme set -n <name> -f <flavour>` (`caelestia scheme list -n`)
 - Update everything: `caelestia update`
-- Pin runtimes per project: `mise use node@22 pnpm@9` · global defaults in `~/.config/mise/config.toml`
+- Pin runtimes per project: `mise use node@22 pnpm@9` · global defaults in `~/.config/mise/config.toml` (Erlang 29 + Elixir 1.20.4 are pinned as a pair; bump both together)
 
 ## VPNs
 

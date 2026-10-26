@@ -1,14 +1,16 @@
 # Global toolchain. Projects override with their own mise.toml / .tool-versions.
 #   mise use node@22          # pin in the current project
-#   mise use -g elixir@latest # change the global default
 #   mise ls / mise outdated / mise upgrade
 
 [tools]
 node   = "lts"
 pnpm   = "latest"
 bun    = "latest"
-erlang = "latest"   # compiled from source by kerl the first time (~10 min)
-elixir = "latest"   # pin per project, e.g. mise use elixir@1.19-otp-28
+# Erlang compiles from source on Arch via kerl (~10 min the first time).
+# Erlang and Elixir are pinned as a pair: Elixir builds target a specific OTP major,
+# and `latest` on both can drift apart when a new OTP ships. Bump them together.
+erlang = { version = "29", install_env = { KERL_CONFIGURE_OPTIONS = "--without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et" } }
+elixir = "1.20.4-otp-29"
 python = "3.13"
 uv     = "latest"
 
@@ -16,10 +18,12 @@ uv     = "latest"
 # Respect .nvmrc / .node-version / .python-version in existing repos
 idiomatic_version_file_enable_tools = ["node", "python"]
 experimental = true
-jobs = 8
 
 [env]
-# Erlang builds via kerl: skip Java/wx/ODBC for a faster, lighter build
-KERL_CONFIGURE_OPTIONS = "--without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et"
 # Keep shell history in iex
 ERL_AFLAGS = "-kernel shell_history enabled"
+# Keep Hex, Rebar and mix archives (phx_new) outside each Elixir install,
+# so they survive Elixir upgrades
+MIX_HOME = "{{env.HOME}}/.mix"
+MIX_ARCHIVES = "{{env.HOME}}/.mix/archives"
+_.path = ["{{env.HOME}}/.mix/escripts"]
