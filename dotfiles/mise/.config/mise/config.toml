@@ -1,0 +1,25 @@
+# Global toolchain. Projects override with their own mise.toml / .tool-versions.
+#   mise use node@22          # pin in the current project
+#   mise use -g elixir@latest # change the global default
+#   mise ls / mise outdated / mise upgrade
+
+[tools]
+node   = "lts"
+pnpm   = "latest"
+bun    = "latest"
+erlang = "latest"   # compiled from source by kerl the first time (~10 min)
+elixir = "latest"   # pin per project, e.g. mise use elixir@1.19-otp-28
+python = "3.13"
+uv     = "latest"
+
+[settings]
+# Respect .nvmrc / .node-version / .python-version in existing repos
+idiomatic_version_file_enable_tools = ["node", "python"]
+experimental = true
+jobs = 8
+
+[env]
+# Erlang builds via kerl: skip Java/wx/ODBC for a faster, lighter build
+KERL_CONFIGURE_OPTIONS = "--without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et"
+# Keep shell history in iex
+ERL_AFLAGS = "-kernel shell_history enabled"
