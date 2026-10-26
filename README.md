@@ -5,7 +5,7 @@ Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra X
 - **Disk:** LUKS2 full-disk encryption → btrfs (`@`, `@home`, `@snapshots`, `@var_log`, `@pkg`), zram swap, snapper + snap-pac (automatic snapshot before/after every pacman transaction)
 - **Boot:** systemd-boot + unified kernel images, `linux` with `linux-zen` as the fallback. Panther Lake needs kernel 6.19+ for Wi‑Fi and audio, so `linux-lts` (6.18) isn't a usable fallback on this CPU
 - **Desktop:** stock Caelestia (Hyprland + Caelestia shell), installed with `caelestia install`. Nothing in `~/.config/hypr` is modified. Color scheme: **Catppuccin Mocha**
-- **Apps:** OnlyOffice, Discord (Equibop, themed by Caelestia), Teams (teams-for-linux)
+- **Apps:** OnlyOffice, Discord (Equibop) and Spotify (Spicetify), both themed by Caelestia, Teams (teams-for-linux)
 - **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, lazysql, pgcli, zellij, Tailscale, Mullvad VPN, Zed, Neovim, Claude Code
 
 ## Install
@@ -39,7 +39,7 @@ Only Caelestia's own override files, which its installer and `caelestia update` 
 | `~/.config/caelestia/hypr-vars.lua` | Editor = Zed (`zeditor`) |
 | `~/.config/caelestia/user-config.fish` | `mise activate fish`, `lg`/`ld` for lazygit/lazydocker |
 
-Plus: Zed, Neovim and Discord (Equibop) components enabled, scheme set to Catppuccin Mocha, greetd + tuigreet as the login manager (Caelestia ships none and recommends this one).
+Plus: Zed, Neovim, Discord (Equibop) and Spotify components enabled, scheme set to Catppuccin Mocha, greetd + tuigreet as the login manager (Caelestia ships none and recommends this one).
 
 ## Using it
 

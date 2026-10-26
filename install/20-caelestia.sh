@@ -22,10 +22,16 @@ fi
 info "Installing caelestia-cli"
 paru -S --needed --noconfirm caelestia-cli
 
-# All default components, plus Zed, Neovim colors and Discord via Equibop (all themed by
-# Caelestia). VS Code/Codium stay off.
+# Spotify first: Spicetify (Caelestia's Spotify theming) patches files in /opt/spotify,
+# which must be writable by you before the component's `spicetify apply` runs.
+info "Installing Spotify"
+paru -S --needed --noconfirm spotify
+sudo chmod a+wr /opt/spotify /opt/spotify/Apps -R
+
+# All default components, plus Zed, Neovim colors, Discord via Equibop and Spotify with
+# Spicetify (all themed by Caelestia). VS Code/Codium stay off.
 info "Running caelestia install"
-caelestia install --aur-helper paru --enable-components zed,nvim,discord --noconfirm
+caelestia install --aur-helper paru --enable-components zed,nvim,discord,spotify --noconfirm
 
 # ---- apps outside Caelestia ------------------------------------------------------
 info "Installing OnlyOffice and Teams"
