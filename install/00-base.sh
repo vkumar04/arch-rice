@@ -2,7 +2,7 @@
 # 00-base.sh — run from the Arch live ISO on the Framework Laptop 13 Pro.
 # Wipes the target disk and installs a minimal encrypted Arch system:
 #   GPT: 1 GiB ESP (/boot) + LUKS2 -> btrfs (@, @home, @snapshots, @var_log, @pkg)
-#   systemd-boot + unified kernel images (linux + linux-lts fallback), zram swap.
+#   systemd-boot + unified kernel images (linux + linux-zen fallback; LTS 6.18 lacks Panther Lake Wi-Fi/audio), zram swap.
 #
 # Usage (from the live ISO, after connecting to the network):
 #   pacman -Sy --noconfirm git
@@ -88,7 +88,7 @@ reflector --country US --protocol https --latest 20 --sort rate --save /etc/pacm
 
 info "Installing base system"
 pacstrap -K /mnt \
-  base base-devel linux linux-lts linux-firmware sof-firmware intel-ucode \
+  base base-devel linux linux-zen linux-firmware sof-firmware intel-ucode \
   btrfs-progs cryptsetup dosfstools \
   networkmanager iwd openssh reflector \
   zram-generator snapper snap-pac \

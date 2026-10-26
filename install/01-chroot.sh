@@ -30,7 +30,7 @@ sed -i 's/^MODULES=.*/MODULES=(btrfs)/' /etc/mkinitcpio.conf
 mkdir -p /etc/kernel /boot/EFI/Linux
 echo "rd.luks.name=$LUKS_UUID=cryptroot rd.luks.options=discard root=/dev/mapper/cryptroot rootflags=subvol=@ rw quiet" > /etc/kernel/cmdline
 
-for k in linux linux-lts; do
+for k in linux linux-zen; do
   cat > "/etc/mkinitcpio.d/$k.preset" <<EOF
 ALL_kver="/boot/vmlinuz-$k"
 PRESETS=('default')

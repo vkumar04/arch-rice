@@ -1,9 +1,9 @@
 # arch-fw13pro
 
-Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra Series 3), set up as a dev machine running a **pure [Caelestia](https://github.com/caelestia-dots/caelestia)** desktop.
+Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra X7, Panther Lake, Arc B390), set up as a dev machine running a **pure [Caelestia](https://github.com/caelestia-dots/caelestia)** desktop.
 
 - **Disk:** LUKS2 full-disk encryption → btrfs (`@`, `@home`, `@snapshots`, `@var_log`, `@pkg`), zram swap, snapper + snap-pac (automatic snapshot before/after every pacman transaction)
-- **Boot:** systemd-boot + unified kernel images, `linux` with `linux-lts` fallback
+- **Boot:** systemd-boot + unified kernel images, `linux` with `linux-zen` as the fallback. Panther Lake needs kernel 6.19+ for Wi‑Fi and audio, so `linux-lts` (6.18) isn't a usable fallback on this CPU
 - **Desktop:** stock Caelestia (Hyprland + Caelestia shell), installed with `caelestia install`. Nothing in `~/.config/hypr` is modified. Color scheme: **Catppuccin Mocha**
 - **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, lazysql, pgcli, spotify-player, Tailscale, Mullvad VPN, Zed, Neovim, Claude Code
 
@@ -66,4 +66,4 @@ dotfiles/                stow packages: caelestia (override files only), git, mi
 ## Recovery
 
 - Every `pacman`/`paru` run makes a snapper pre/post pair: `sudo snapper list`, `sudo snapper undochange <pre>..<post>`.
-- If `linux` won't boot, pick **arch-linux-lts** in the systemd-boot menu (hold Space at power-on).
+- If `linux` won't boot, pick **arch-linux-zen** in the systemd-boot menu (hold Space at power-on).
