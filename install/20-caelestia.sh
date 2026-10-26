@@ -10,11 +10,12 @@ FLAVOUR="${FLAVOUR:-mocha}"
 
 # ---- AUR helper (paru) ------------------------------------------------------
 if ! command -v paru >/dev/null; then
+  # Build from source: the prebuilt paru-bin links an older libalpm than current pacman ships
   info "Building paru"
-  sudo pacman -S --needed --noconfirm base-devel git
+  sudo pacman -S --needed --noconfirm base-devel git rust
   tmp="$(mktemp -d)"
-  git clone --depth 1 https://aur.archlinux.org/paru-bin.git "$tmp/paru-bin"
-  (cd "$tmp/paru-bin" && makepkg -si --noconfirm)
+  git clone --depth 1 https://aur.archlinux.org/paru.git "$tmp/paru"
+  (cd "$tmp/paru" && makepkg -si --noconfirm)
   rm -rf "$tmp"
 fi
 
