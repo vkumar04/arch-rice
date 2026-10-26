@@ -10,9 +10,9 @@
 [rebase]
 	autoStash = true
 [core]
-	pager = delta
+	pager = /usr/bin/delta   # git-delta; full path because Zed's Delta also installs a `delta` command
 [interactive]
-	diffFilter = delta --color-only
+	diffFilter = /usr/bin/delta --color-only
 [delta]
 	navigate = true
 	line-numbers = true
