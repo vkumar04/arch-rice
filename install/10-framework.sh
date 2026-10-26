@@ -21,11 +21,6 @@ sudo systemctl enable --now power-profiles-daemon upower
 # NPU (Core Ultra X7): userspace driver for /dev/accel/accel0; the render group grants access
 sudo usermod -aG render "$USER"
 
-# Fingerprint for sudo (password still works as a fallback)
-if ! grep -q pam_fprintd /etc/pam.d/sudo; then
-  sudo sed -i '1a auth      sufficient pam_fprintd.so' /etc/pam.d/sudo
-fi
-
 # Larger inotify limits — needed for Vite/Next/Phoenix file watchers on big repos
 echo 'fs.inotify.max_user_watches=524288' | sudo tee /etc/sysctl.d/90-inotify.conf >/dev/null
 sudo sysctl --system >/dev/null

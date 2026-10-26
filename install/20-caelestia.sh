@@ -28,6 +28,19 @@ paru -S --needed --noconfirm caelestia-cli
 info "Installing Spotify"
 paru -S --needed --noconfirm spotify
 sudo chmod a+wr /opt/spotify /opt/spotify/Apps -R
+# Spotify updates reset those permissions; restore them automatically
+sudo install -Dm644 /dev/stdin /etc/pacman.d/hooks/spotify-spicetify.hook <<'HOOK'
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = spotify
+
+[Action]
+Description = Making /opt/spotify writable for Spicetify...
+When = PostTransaction
+Exec = /usr/bin/chmod -R a+wr /opt/spotify /opt/spotify/Apps
+HOOK
 
 # All default components, plus Zed, Neovim colors, Discord via Equibop and Spotify with
 # Spicetify (all themed by Caelestia). VS Code/Codium stay off.
@@ -63,4 +76,7 @@ sudo systemctl enable greetd
 
 # ---- color scheme -----------------------------------------------------------------
 info "Setting color scheme: $SCHEME $FLAVOUR"
-caelestia scheme set -n "$SCHEME" -f "$FLAVOUR" || echo "Set it later from the launcher or: caelestia scheme set -n $SCHEME -f $FLAVOUR"
+caelestia scheme set -n "$SCHEME" -f "$FLAVOUR" || true
+# Outside Hyprland the CLI can't theme Hyprland's own colors, so hypr-user.lua re-applies
+# the scheme once on first login (marker file below). Delete the marker to re-run it.
+rm -f "${XDG_STATE_HOME:-$HOME/.local/state}/caelestia/.fw-scheme-applied"

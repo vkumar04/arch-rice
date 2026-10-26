@@ -41,6 +41,18 @@ sudo systemctl enable --now mullvad-daemon
 for _ in {1..10}; do mullvad auto-connect set off >/dev/null 2>&1 && break; sleep 1; done
 echo "Mullvad: run 'mullvad account login <number>' then 'mullvad connect'."
 
+# ---- bash (login shell) gets mise + ~/.local/bin too ----------------------------
+# Foot runs fish, but apps launched from the desktop (Zed's env loading, Claude Code's
+# tools) use $SHELL, which stays bash.
+if ! grep -q 'mise activate bash' ~/.bashrc 2>/dev/null; then
+  cat >> ~/.bashrc <<'RC'
+
+# added by arch-fw13pro: dev toolchain for bash (fish is configured by Caelestia)
+export PATH="$HOME/.local/bin:$PATH"
+command -v mise >/dev/null && eval "$(mise activate bash)"
+RC
+fi
+
 # ---- runtimes via mise -------------------------------------------------------
 info "Installing runtimes with mise (Erlang compiles from source — grab a coffee)"
 eval "$(mise activate bash)"

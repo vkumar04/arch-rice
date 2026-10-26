@@ -26,8 +26,9 @@ Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra X
    cd ~/arch-fw13pro && ./bootstrap.sh
    ```
    Runs `10-framework` → links config → `20-caelestia` → `30-dev`. Erlang compiles from source the first time (~10 min). Reboot when it's done.
-5. Bootstrap signs you in to GitHub (`gh`) through the browser and offers to upload your new SSH key. After first login: `claude` to sign in, `sudo fwupdmgr update` for firmware.
-6. Tailscale: bootstrap prints a login URL. Then `ssh you@<mac-name>` works from anywhere (turn on **Remote Login** in the Mac's System Settings → General → Sharing, or enable Tailscale SSH on the Mac).
+5. Spotify: open it once and quit, then run `spicetify backup apply` (Spicetify needs Spotify's first-run files before it can theme it). Run `spicetify backup apply` again after Spotify updates.
+6. Bootstrap signs you in to GitHub (`gh`) through the browser and offers to upload your new SSH key. After first login: `claude` to sign in, `sudo fwupdmgr update` for firmware.
+7. Tailscale: bootstrap prints a login URL. Then `ssh you@<mac-name>` works from anywhere (turn on **Remote Login** in the Mac's System Settings → General → Sharing, or enable Tailscale SSH on the Mac).
 
 ## What this repo changes vs. stock Caelestia
 
@@ -35,9 +36,10 @@ Only Caelestia's own override files, which its installer and `caelestia update` 
 
 | File | Change |
 |---|---|
-| `~/.config/caelestia/hypr-user.lua` | Laptop display at scale 1.6 (Caelestia defaults to 1, too small on this panel) |
-| `~/.config/caelestia/hypr-vars.lua` | Editor = Zed (`zeditor`) |
-| `~/.config/caelestia/user-config.fish` | `mise activate fish`, `lg`/`ld` for lazygit/lazydocker |
+| `~/.config/caelestia/hypr-user.lua` | Laptop display at scale 1.6 (Caelestia defaults to 1, too small on this panel); applies the color scheme once on first login so Hyprland's own colors match |
+| `~/.config/caelestia/hypr-vars.lua` | Editor = Zed (`zeditor`); sleep gesture/keybind = plain suspend (no hibernate with zram) |
+| `~/.config/caelestia/cli.json` | Super+D communication workspace launches Equibop instead of the official Discord app |
+| `~/.config/caelestia/user-config.fish` | `mise activate fish`, `ld` for lazydocker (`lg` ships with Caelestia) |
 
 Plus: Zed, Neovim, Discord (Equibop) and Spotify components enabled, scheme set to Catppuccin Mocha, greetd + tuigreet as the login manager (Caelestia ships none and recommends this one).
 

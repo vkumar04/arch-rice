@@ -1,0 +1,10 @@
+{
+  "toggles": {
+    "communication": {
+      "discord": {
+        "command": ["equibop"],
+        "match": [{ "class": "equibop" }, { "class": "discord" }]
+      }
+    }
+  }
+}

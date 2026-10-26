@@ -18,7 +18,7 @@ bash "$ROOT/install/10-framework.sh"
 # These are only Caelestia's sanctioned override files plus git and mise config.
 info "Linking personal config"
 sudo pacman -S --needed --noconfirm stow
-for f in .config/caelestia/hypr-vars.lua .config/caelestia/hypr-user.lua .config/caelestia/user-config.fish \
+for f in .config/caelestia/hypr-vars.lua .config/caelestia/hypr-user.lua .config/caelestia/user-config.fish .config/caelestia/cli.json \
          .config/git/config .config/mise/config.toml; do
   if [[ -e $HOME/$f && ! -L $HOME/$f ]]; then mv "$HOME/$f" "$HOME/$f.pre-bootstrap"; fi
 done
@@ -29,6 +29,12 @@ bash "$ROOT/install/20-caelestia.sh"
 
 info "Dev toolchain (mise, Docker, Claude Code)"
 bash "$ROOT/install/30-dev.sh"
+
+# Fingerprint for sudo, added last so the long unattended builds above never wait on a finger.
+# Password still works as a fallback.
+if ! grep -q pam_fprintd /etc/pam.d/sudo; then
+  sudo sed -i '1a auth      sufficient pam_fprintd.so' /etc/pam.d/sudo
+fi
 
 cat <<'EOF'
 
