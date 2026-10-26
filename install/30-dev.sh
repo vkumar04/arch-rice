@@ -69,6 +69,18 @@ if ! command -v claude >/dev/null; then
   curl -fsSL https://claude.ai/install.sh | bash
 fi
 
+# ---- Delta (Zed Industries' multiplayer agent workspace) -----------------------
+# Official Linux tarball + its bundled per-user installer: ~/.local/delta.app,
+# CLI at ~/.local/bin/delta, launcher entry and icons. Updates itself from there.
+if [[ ! -x ~/.local/delta.app/bin/delta ]]; then
+  info "Installing Delta"
+  tmp="$(mktemp -d)"
+  curl -fsSL https://github.com/zed-industries/delta-nix/releases/latest/download/delta-linux-x86_64.tar.gz \
+    | tar xz -C "$tmp"
+  bash "$tmp/Delta/install.sh"
+  rm -rf "$tmp"
+fi
+
 # ---- git + SSH ----------------------------------------------------------------
 # email lives in an untracked file (~/.config/git/local) so it never lands in this repo
 if ! git config user.email >/dev/null; then

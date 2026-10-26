@@ -6,7 +6,7 @@ Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra X
 - **Boot:** systemd-boot + unified kernel images, `linux` with `linux-zen` as the fallback. Panther Lake needs kernel 6.19+ for Wi‑Fi and audio, so `linux-lts` (6.18) isn't a usable fallback on this CPU
 - **Desktop:** stock Caelestia (Hyprland + Caelestia shell), installed with `caelestia install`. Nothing in `~/.config/hypr` is modified. Color scheme: **Catppuccin Mocha**
 - **Apps:** Papers (PDF), Loupe (images), Celluloid (video), all themed via GTK and set as defaults; Discord (Equibop) and Spotify (Spicetify), both themed by Caelestia, Teams (teams-for-linux)
-- **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, lazysql, pgcli, zellij, gh-dash, posting, Tailscale, Mullvad VPN, Zed, Neovim, Claude Code
+- **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, lazysql, pgcli, zellij, gh-dash, posting, Tailscale, Mullvad VPN, Zed, Delta (Zed's agent workspace), Neovim, Claude Code
 
 ## Install
 
@@ -61,7 +61,7 @@ install/00-base.sh       live ISO: partition, encrypt, btrfs, pacstrap, bootload
 install/01-chroot.sh     called by 00: locale, UKIs, systemd-boot, snapper, user
 install/10-framework.sh  power-profiles-daemon, fwupd, fprintd (sudo + lock), Intel media, NPU driver, inotify limits
 install/20-caelestia.sh  paru, caelestia-cli, `caelestia install`, Teams, Papers/Loupe/Celluloid, greetd, scheme
-install/30-dev.sh        CLI tools, Docker, lazygit/lazydocker, Tailscale, Mullvad, mise runtimes, Claude Code
+install/30-dev.sh        CLI tools, Docker, lazygit/lazydocker, Tailscale, Mullvad, mise runtimes, Claude Code, Delta
 bootstrap.sh             10 → stow → 20 → 30
 dotfiles/                stow packages: caelestia (override files only), git, mise
 ```
