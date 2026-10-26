@@ -37,5 +37,7 @@ Done. Reboot and log in through the greeter.
   Super + W         browser
   Super + Q         close window
 
+  In the terminal:  lg (lazygit)  ld (lazydocker)  claude
+
 Full keybind list: https://github.com/caelestia-dots/caelestia#default-keybinds
 EOF

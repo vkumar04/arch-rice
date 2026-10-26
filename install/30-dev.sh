@@ -30,7 +30,7 @@ if ! tailscale status >/dev/null 2>&1; then
 fi
 
 # ---- approved extras (AUR fallback via paru) ----------------------------------
-paru -S --needed --noconfirm lazysql spotify-player
+paru -S --needed --noconfirm lazysql
 
 # ---- Mullvad VPN (AUR: daemon + `mullvad` CLI + GUI) ---------------------------
 # Note: while Mullvad is connected its firewall blocks the tailnet, so `ssh <mac>`
