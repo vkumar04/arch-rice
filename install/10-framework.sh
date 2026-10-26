@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 10-framework.sh — Framework Laptop 13 Pro hardware support (Intel Core Ultra Series 3).
 # Only what Caelestia doesn't already cover: power profiles, firmware, fingerprint,
-# Intel video acceleration, sensors. (Audio, Bluetooth, network come from Caelestia.)
+# Intel video acceleration, the NPU, sensors. (Audio, Bluetooth, network come from Caelestia.)
 set -euo pipefail
 info() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
 
@@ -12,10 +12,14 @@ sudo pacman -S --needed --noconfirm \
   fprintd \
   iio-sensor-proxy \
   intel-media-driver vulkan-intel \
+  intel-npu-driver \
   brightnessctl
 
 # power-profiles-daemon backs Caelestia's power-profile toggle
 sudo systemctl enable --now power-profiles-daemon upower
+
+# NPU (Core Ultra X7): userspace driver for /dev/accel/accel0; the render group grants access
+sudo usermod -aG render "$USER"
 
 # Fingerprint for sudo (password still works as a fallback)
 if ! grep -q pam_fprintd /etc/pam.d/sudo; then

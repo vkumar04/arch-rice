@@ -56,7 +56,7 @@ Tailscale and Mullvad are both installed, but **Mullvad's firewall blocks tailne
 ```
 install/00-base.sh       live ISO: partition, encrypt, btrfs, pacstrap, bootloader
 install/01-chroot.sh     called by 00: locale, UKIs, systemd-boot, snapper, user
-install/10-framework.sh  power-profiles-daemon, fwupd, fprintd (sudo + lock), Intel media, inotify limits
+install/10-framework.sh  power-profiles-daemon, fwupd, fprintd (sudo + lock), Intel media, NPU driver, inotify limits
 install/20-caelestia.sh  paru, caelestia-cli, `caelestia install`, greetd, scheme
 install/30-dev.sh        CLI tools, Docker, lazygit/lazydocker, Tailscale, Mullvad, mise runtimes, Claude Code
 bootstrap.sh             10 → stow → 20 → 30
