@@ -37,6 +37,15 @@ caelestia install --aur-helper paru --enable-components zed,nvim,discord,spotify
 info "Installing Teams"
 paru -S --needed --noconfirm teams-for-linux-bin
 
+# GTK4 viewers, themed by Caelestia's GTK styling, set as the defaults for their file types
+info "Installing Papers, Loupe, Celluloid"
+sudo pacman -S --needed --noconfirm papers loupe celluloid xdg-utils
+xdg-mime default org.gnome.Papers.desktop application/pdf
+xdg-mime default org.gnome.Loupe.desktop \
+  image/png image/jpeg image/gif image/webp image/avif image/heif image/tiff image/bmp image/svg+xml
+xdg-mime default io.github.celluloid_player.Celluloid.desktop \
+  video/mp4 video/webm video/x-matroska video/quicktime video/x-msvideo video/mpeg video/ogg
+
 # ---- login manager (Caelestia ships none; greetd + tuigreet is what it recommends).
 # start-hyprland is Hyprland's watchdog wrapper; launching the bare binary triggers a warning.
 info "Configuring greetd (tuigreet → Hyprland)"
