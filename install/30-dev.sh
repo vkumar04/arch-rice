@@ -13,6 +13,7 @@ sudo pacman -S --needed --noconfirm \
   mise \
   ncurses openssl libxslt inotify-tools \
   docker docker-compose docker-buildx lazydocker \
+  zellij \
   pgcli \
   tailscale openssh
 

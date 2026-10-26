@@ -5,7 +5,7 @@ Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra X
 - **Disk:** LUKS2 full-disk encryption → btrfs (`@`, `@home`, `@snapshots`, `@var_log`, `@pkg`), zram swap, snapper + snap-pac (automatic snapshot before/after every pacman transaction)
 - **Boot:** systemd-boot + unified kernel images, `linux` with `linux-zen` as the fallback. Panther Lake needs kernel 6.19+ for Wi‑Fi and audio, so `linux-lts` (6.18) isn't a usable fallback on this CPU
 - **Desktop:** stock Caelestia (Hyprland + Caelestia shell), installed with `caelestia install`. Nothing in `~/.config/hypr` is modified. Color scheme: **Catppuccin Mocha**
-- **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, lazysql, pgcli, spotify-player, Tailscale, Mullvad VPN, Zed, Neovim, Claude Code
+- **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, lazysql, pgcli, zellij, spotify-player, Tailscale, Mullvad VPN, Zed, Neovim, Claude Code
 
 ## Install
 
@@ -36,7 +36,7 @@ Only Caelestia's own override files, which its installer and `caelestia update` 
 |---|---|
 | `~/.config/caelestia/hypr-user.lua` | Laptop display at scale 1.6 (Caelestia defaults to 1, too small on this panel) |
 | `~/.config/caelestia/hypr-vars.lua` | Editor = Zed (`zeditor`) |
-| `~/.config/caelestia/user-config.fish` | `mise activate fish`, `lg`/`ld`/`sp` abbreviations |
+| `~/.config/caelestia/user-config.fish` | `mise activate fish` |
 
 Plus: Zed and Neovim components enabled, scheme set to Catppuccin Mocha, greetd + tuigreet as the login manager (Caelestia ships none and recommends this one).
 
