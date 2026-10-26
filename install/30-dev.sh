@@ -12,11 +12,20 @@ sudo pacman -S --needed --noconfirm \
   ripgrep fd fzf bat jq yq tree unzip p7zip \
   mise \
   ncurses openssl libxslt inotify-tools \
-  docker docker-compose docker-buildx
+  docker docker-compose docker-buildx lazydocker \
+  tailscale openssh
 
 # ---- Docker -----------------------------------------------------------------
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
+
+# ---- Tailscale (reach the Mac and other machines by name) ----------------------
+sudo systemctl enable --now tailscaled
+# --operator lets you run `tailscale` without sudo; --ssh lets your other devices SSH in here
+if ! tailscale status >/dev/null 2>&1; then
+  info "Tailscale: open the printed URL to log in"
+  sudo tailscale up --operator="$USER" --ssh
+fi
 
 # ---- runtimes via mise -------------------------------------------------------
 info "Installing runtimes with mise (Erlang compiles from source — grab a coffee)"
