@@ -34,8 +34,8 @@ info "Running caelestia install"
 caelestia install --aur-helper paru --enable-components zed,nvim,discord,spotify --noconfirm
 
 # ---- apps outside Caelestia ------------------------------------------------------
-info "Installing OnlyOffice and Teams"
-paru -S --needed --noconfirm onlyoffice-bin teams-for-linux-bin
+info "Installing Teams"
+paru -S --needed --noconfirm teams-for-linux-bin
 
 # ---- login manager (Caelestia ships none; greetd + tuigreet is what it recommends).
 # start-hyprland is Hyprland's watchdog wrapper; launching the bare binary triggers a warning.

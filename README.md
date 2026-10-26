@@ -5,7 +5,7 @@ Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra X
 - **Disk:** LUKS2 full-disk encryption → btrfs (`@`, `@home`, `@snapshots`, `@var_log`, `@pkg`), zram swap, snapper + snap-pac (automatic snapshot before/after every pacman transaction)
 - **Boot:** systemd-boot + unified kernel images, `linux` with `linux-zen` as the fallback. Panther Lake needs kernel 6.19+ for Wi‑Fi and audio, so `linux-lts` (6.18) isn't a usable fallback on this CPU
 - **Desktop:** stock Caelestia (Hyprland + Caelestia shell), installed with `caelestia install`. Nothing in `~/.config/hypr` is modified. Color scheme: **Catppuccin Mocha**
-- **Apps:** OnlyOffice, Discord (Equibop) and Spotify (Spicetify), both themed by Caelestia, Teams (teams-for-linux)
+- **Apps:** Discord (Equibop) and Spotify (Spicetify), both themed by Caelestia, Teams (teams-for-linux)
 - **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, lazysql, pgcli, zellij, Tailscale, Mullvad VPN, Zed, Neovim, Claude Code
 
 ## Install
@@ -58,7 +58,7 @@ Tailscale and Mullvad are both installed, but **Mullvad's firewall blocks tailne
 install/00-base.sh       live ISO: partition, encrypt, btrfs, pacstrap, bootloader
 install/01-chroot.sh     called by 00: locale, UKIs, systemd-boot, snapper, user
 install/10-framework.sh  power-profiles-daemon, fwupd, fprintd (sudo + lock), Intel media, NPU driver, inotify limits
-install/20-caelestia.sh  paru, caelestia-cli, `caelestia install`, OnlyOffice, Teams, greetd, scheme
+install/20-caelestia.sh  paru, caelestia-cli, `caelestia install`, Teams, greetd, scheme
 install/30-dev.sh        CLI tools, Docker, lazygit/lazydocker, Tailscale, Mullvad, mise runtimes, Claude Code
 bootstrap.sh             10 → stow → 20 → 30
 dotfiles/                stow packages: caelestia (override files only), git, mise
