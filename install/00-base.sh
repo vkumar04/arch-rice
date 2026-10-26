@@ -51,12 +51,17 @@ if [[ $DISK =~ [0-9]$ ]]; then PART="${DISK}p"; else PART="$DISK"; fi
 ESP="${PART}1"
 CRYPT="${PART}2"
 
+# release anything a previous, failed run left behind
+swapoff -a 2>/dev/null || true
+umount -R /mnt 2>/dev/null || true
+cryptsetup close cryptroot 2>/dev/null || true
+
 info "Partitioning $DISK"
 wipefs --all --force "$DISK"
 sgdisk --zap-all "$DISK"
 sgdisk -n1:0:+1G -t1:ef00 -c1:EFI   "$DISK"
 sgdisk -n2:0:0   -t2:8309 -c2:LUKS  "$DISK"
-partprobe "$DISK"; sleep 2
+partprobe "$DISK"; udevadm settle
 
 # ---- encryption -------------------------------------------------------------
 info "Setting up LUKS2 on $CRYPT"
@@ -101,8 +106,9 @@ LUKS_UUID="$(blkid -s UUID -o value "$CRYPT")"
 cp "$SCRIPT_DIR/01-chroot.sh" /mnt/root/01-chroot.sh
 arch-chroot /mnt env \
   HOSTNAME_="$HOSTNAME_" USERNAME="$USERNAME" TIMEZONE="$TIMEZONE" \
-  LOCALE="$LOCALE" KEYMAP="$KEYMAP" LUKS_UUID="$LUKS_UUID" USER_PASS="$USER_PASS" \
+  LOCALE="$LOCALE" KEYMAP="$KEYMAP" LUKS_UUID="$LUKS_UUID" \
   bash /root/01-chroot.sh
+printf '%s:%s\n' "$USERNAME" "$USER_PASS" | arch-chroot /mnt chpasswd
 unset USER_PASS USER_PASS2
 rm -f /mnt/root/01-chroot.sh
 

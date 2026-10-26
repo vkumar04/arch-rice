@@ -38,4 +38,4 @@ echo "Apply any listed updates with: sudo fwupdmgr update"
 echo
 info "Enroll a fingerprint now? (tap the power button sensor repeatedly)"
 read -rp "[y/N] " yn
-if [[ ${yn,,} == y ]]; then fprintd-enroll; else echo "Later: fprintd-enroll"; fi
+if [[ ${yn,,} == y ]]; then fprintd-enroll || echo "Enroll failed; retry later: fprintd-enroll"; else echo "Later: fprintd-enroll"; fi

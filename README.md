@@ -67,4 +67,5 @@ dotfiles/                stow packages: caelestia (override files only), git, mi
 ## Recovery
 
 - Every `pacman`/`paru` run makes a snapper pre/post pair: `sudo snapper list`, `sudo snapper undochange <pre>..<post>`.
+- Root is locked; if boot drops to emergency mode you still get a shell (after the disk passphrase), no root password needed.
 - If `linux` won't boot, pick **arch-linux-zen** in the systemd-boot menu (hold Space at power-on).

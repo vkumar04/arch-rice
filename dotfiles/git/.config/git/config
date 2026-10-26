@@ -1,6 +1,6 @@
 [user]
 	name = Vick Kumar
-	# email is set by bootstrap.sh (git config --global user.email ...)
+	# email lives in ~/.config/git/local (untracked), written by install/30-dev.sh
 [init]
 	defaultBranch = main
 [pull]
@@ -20,3 +20,5 @@
 	conflictstyle = zdiff3
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/
+[include]
+	path = ~/.config/git/local

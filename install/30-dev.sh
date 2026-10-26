@@ -9,7 +9,7 @@ info() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
 info "Installing CLI + dev packages"
 sudo pacman -S --needed --noconfirm \
   github-cli git-delta lazygit \
-  ripgrep fd fzf bat jq yq tree unzip p7zip \
+  ripgrep fd fzf bat jq yq tree unzip 7zip \
   mise \
   ncurses openssl libxslt inotify-tools \
   docker docker-compose docker-buildx lazydocker \
@@ -59,9 +59,10 @@ if ! command -v claude >/dev/null; then
 fi
 
 # ---- git + SSH ----------------------------------------------------------------
-if ! git config --global user.email >/dev/null; then
+# email lives in an untracked file (~/.config/git/local) so it never lands in this repo
+if ! git config user.email >/dev/null; then
   read -rp "Git email: " email
-  git config --global user.email "$email"
+  git config --file ~/.config/git/local user.email "$email"
 fi
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   info "Generating SSH key"

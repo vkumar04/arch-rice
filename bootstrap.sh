@@ -8,6 +8,9 @@ info() { printf '\n\033[1;34m==>\033[0m \033[1m%s\033[0m\n' "$*"; }
 
 [[ $EUID -ne 0 ]] || { echo "Run as your user, not root."; exit 1; }
 
+info "Updating system and package databases"
+sudo pacman -Syu --noconfirm
+
 info "Hardware support (Framework 13 Pro)"
 bash "$ROOT/install/10-framework.sh"
 

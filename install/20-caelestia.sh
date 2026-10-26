@@ -37,7 +37,8 @@ caelestia install --aur-helper paru --enable-components zed,nvim,discord,spotify
 info "Installing OnlyOffice and Teams"
 paru -S --needed --noconfirm onlyoffice-bin teams-for-linux-bin
 
-# ---- login manager (Caelestia ships none; greetd + tuigreet is what it recommends)
+# ---- login manager (Caelestia ships none; greetd + tuigreet is what it recommends).
+# start-hyprland is Hyprland's watchdog wrapper; launching the bare binary triggers a warning.
 info "Configuring greetd (tuigreet → Hyprland)"
 sudo pacman -S --needed --noconfirm greetd greetd-tuigreet
 sudo tee /etc/greetd/config.toml >/dev/null <<'EOF'
@@ -45,7 +46,7 @@ sudo tee /etc/greetd/config.toml >/dev/null <<'EOF'
 vt = 1
 
 [default_session]
-command = "tuigreet --time --remember --asterisks --cmd Hyprland"
+command = "tuigreet --time --remember --asterisks --cmd start-hyprland"
 user = "greeter"
 EOF
 sudo systemctl enable greetd

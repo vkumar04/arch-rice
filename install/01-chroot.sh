@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # 01-chroot.sh — invoked by 00-base.sh inside arch-chroot. Don't run directly.
 set -euo pipefail
-: "${HOSTNAME_:?}" "${USERNAME:?}" "${TIMEZONE:?}" "${LOCALE:?}" "${KEYMAP:?}" "${LUKS_UUID:?}" "${USER_PASS:?}"
+: "${HOSTNAME_:?}" "${USERNAME:?}" "${TIMEZONE:?}" "${LOCALE:?}" "${KEYMAP:?}" "${LUKS_UUID:?}"
 
 # ---- time, locale, host -----------------------------------------------------
 ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 hwclock --systohc
 sed -i "s/^#\(${LOCALE//./\\.} UTF-8\)/\1/" /etc/locale.gen
+grep -q "^${LOCALE} UTF-8" /etc/locale.gen || { echo "LOCALE $LOCALE not found in /etc/locale.gen" >&2; exit 1; }
 locale-gen
 echo "LANG=$LOCALE" > /etc/locale.conf
 echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
@@ -18,7 +19,7 @@ cat > /etc/hosts <<EOF
 EOF
 
 # ---- pacman niceties --------------------------------------------------------
-sed -i 's/^#Color/Color/; s/^#ParallelDownloads.*/ParallelDownloads = 10/' /etc/pacman.conf
+sed -i 's/^#Color/Color/; s/^#\?ParallelDownloads.*/ParallelDownloads = 10/' /etc/pacman.conf
 grep -q '^ILoveCandy' /etc/pacman.conf || sed -i '/^Color/a ILoveCandy' /etc/pacman.conf
 # multilib (Steam, Wine, etc.)
 sed -i '/^#\[multilib\]/{N;s/#//g}' /etc/pacman.conf
@@ -64,7 +65,7 @@ rmdir /.snapshots
 snapper --no-dbus -c root create-config /
 btrfs subvolume delete /.snapshots
 mkdir /.snapshots
-mount -a
+mount /.snapshots
 chmod 750 /.snapshots
 sed -i 's/^TIMELINE_LIMIT_HOURLY=.*/TIMELINE_LIMIT_HOURLY="5"/;
         s/^TIMELINE_LIMIT_DAILY=.*/TIMELINE_LIMIT_DAILY="7"/;
@@ -82,7 +83,13 @@ systemctl enable NetworkManager fstrim.timer reflector.timer systemd-timesyncd
 
 # ---- user -------------------------------------------------------------------
 useradd -m -G wheel -s /bin/bash "$USERNAME"
-printf '%s:%s\n' "$USERNAME" "$USER_PASS" | chpasswd
+# password is set by 00-base.sh after this script (kept out of the chroot's environment)
 passwd -l root
+# root is locked, so let emergency/rescue mode drop to a shell without a root password.
+# Reaching it already requires unlocking the LUKS disk.
+for unit in emergency rescue; do
+  mkdir -p "/etc/systemd/system/$unit.service.d"
+  printf '[Service]\nEnvironment=SYSTEMD_SULOGIN_FORCE=1\n' > "/etc/systemd/system/$unit.service.d/sulogin.conf"
+done
 echo '%wheel ALL=(ALL:ALL) ALL' > /etc/sudoers.d/10-wheel
 chmod 440 /etc/sudoers.d/10-wheel
