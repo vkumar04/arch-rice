@@ -27,6 +27,14 @@ if ! tailscale status >/dev/null 2>&1; then
   sudo tailscale up --operator="$USER" --ssh
 fi
 
+# ---- Mullvad VPN (AUR: daemon + `mullvad` CLI + GUI) ---------------------------
+# Note: while Mullvad is connected its firewall blocks the tailnet, so `ssh <mac>`
+# over Tailscale won't work until you disconnect. See README › VPNs.
+paru -S --needed --noconfirm mullvad-vpn-bin
+sudo systemctl enable --now mullvad-daemon
+mullvad auto-connect set off >/dev/null 2>&1 || true
+echo "Mullvad: run 'mullvad account login <number>' then 'mullvad connect'."
+
 # ---- runtimes via mise -------------------------------------------------------
 info "Installing runtimes with mise (Erlang compiles from source — grab a coffee)"
 eval "$(mise activate bash)"

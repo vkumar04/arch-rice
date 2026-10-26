@@ -27,6 +27,9 @@ bash "$ROOT/install/20-caelestia.sh"
 info "Dev toolchain (mise, Docker, Claude Code)"
 bash "$ROOT/install/30-dev.sh"
 
+info "Terminal apps"
+bash "$ROOT/install/40-tui.sh"
+
 cat <<'EOF'
 
 Done. Reboot and log in through the greeter.
@@ -36,6 +39,8 @@ Done. Reboot and log in through the greeter.
   Super + C         Zed
   Super + W         browser
   Super + Q         close window
+
+  In the terminal:  y (files)  lg (git)  ld (docker)  zj (zellij)  claude
 
 Full keybind list: https://github.com/caelestia-dots/caelestia#default-keybinds
 EOF
