@@ -6,7 +6,6 @@ Clean Arch Linux install for the **Framework Laptop 13 Pro** (Intel Core Ultra S
 - **Boot:** systemd-boot + unified kernel images, `linux` with `linux-lts` fallback
 - **Desktop:** stock Caelestia (Hyprland + Caelestia shell), installed with `caelestia install`. Nothing in `~/.config/hypr` is modified. Color scheme: **Catppuccin Mocha**
 - **Dev:** every runtime via **mise** (Node LTS, pnpm, bun, Erlang, Elixir, Python, uv), Docker, lazygit, lazydocker, Tailscale, Mullvad VPN, Zed, Claude Code
-- **Terminal apps:** yazi, zellij, lazygit, lazydocker, gh-dash, k9s, lazysql, pgcli, litecli, posting, harlequin, isd, bluetui, wiremix, powertop, dust, duf, gdu, bandwhich, trippy, glow, tealdeer, spotify-player
 
 ## Install
 
@@ -48,25 +47,6 @@ Plus: Zed component enabled, scheme set to Catppuccin Mocha, greetd + tuigreet a
 - Update everything: `caelestia update`
 - Pin runtimes per project: `mise use node@22 pnpm@9` · global defaults in `~/.config/mise/config.toml`
 
-## Terminal apps
-
-| Type | Does |
-|---|---|
-| `y` | yazi file manager (cds on quit, image previews in foot) |
-| `zj` | zellij: tabs, splits, sessions |
-| `lg` / `ld` | lazygit / lazydocker |
-| `gh dash` | GitHub PRs and issues |
-| `lazysql`, `harlequin`, `pgcli`, `litecli` | databases |
-| `posting` | HTTP/GraphQL client (Postman in the terminal) |
-| `k9s` | Kubernetes |
-| `isd` | systemd units and logs |
-| `bluetui`, `wiremix`, `nmtui` | Bluetooth, audio, Wi‑Fi |
-| `sudo powertop` | what's draining the battery |
-| `dust`, `duf`, `gdu` | disk usage |
-| `bandwhich`, `trippy` | bandwidth per process, traceroute |
-| `glow`, `tldr` | read Markdown, quick command examples |
-| `sp` | spotify-player |
-
 ## VPNs
 
 Tailscale and Mullvad are both installed, but **Mullvad's firewall blocks tailnet traffic while it's connected**, so `ssh <mac>` fails until you `mullvad disconnect`. If you want both at once, the clean fix is Tailscale's Mullvad add-on (Mullvad exit nodes inside Tailscale) instead of the Mullvad app.
@@ -79,8 +59,7 @@ install/01-chroot.sh     called by 00: locale, UKIs, systemd-boot, snapper, user
 install/10-framework.sh  power-profiles-daemon, fwupd, fprintd (sudo + lock), Intel media, inotify limits
 install/20-caelestia.sh  paru, caelestia-cli, `caelestia install`, greetd, scheme
 install/30-dev.sh        CLI tools, Docker, lazygit/lazydocker, Tailscale, Mullvad, mise runtimes, Claude Code
-install/40-tui.sh        terminal apps (paru, one at a time) + Python TUIs via uv
-bootstrap.sh             10 → stow → 20 → 30 → 40
+bootstrap.sh             10 → stow → 20 → 30
 dotfiles/                stow packages: caelestia (override files only), git, mise
 ```
 

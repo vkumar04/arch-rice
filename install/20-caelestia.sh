@@ -22,9 +22,9 @@ fi
 info "Installing caelestia-cli"
 paru -S --needed --noconfirm caelestia-cli
 
-# All default components, plus Zed and Neovim colors (themed by Caelestia). VS Code/Codium stay off.
+# All default components, plus Zed (themed by Caelestia). VS Code/Codium stay off.
 info "Running caelestia install"
-caelestia install --aur-helper paru --enable-components zed,nvim --noconfirm
+caelestia install --aur-helper paru --enable-components zed --noconfirm
 
 # ---- login manager (Caelestia ships none; greetd + tuigreet is what it recommends)
 info "Configuring greetd (tuigreet → Hyprland)"
